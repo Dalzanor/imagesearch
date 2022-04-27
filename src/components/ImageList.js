@@ -3,7 +3,7 @@ import ImageCard from "./ImageCard.js";
 import { useTransition, animated } from "react-spring";
 import useMedia from "./useMedia";
 import useMeasure from "react-use-measure";
-import "./ImageList.css";
+// import "./ImageList.css";
 
 const ImageList = (props) => {
 	const [items, setItems] = useState([]);
