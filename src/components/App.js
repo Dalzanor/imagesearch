@@ -9,10 +9,10 @@ const App = () => {
 	const [backgroundIndex, setBackgroundIndex] = useState(0);
 
 	const onSearchSubmit = async (search) => {
-		// const response = await unsplash.get("/search/photos", {
-		// 	params: { query: search, per_page: 20 },
-		// });
-		// setImages(response.data.results);
+		const response = await unsplash.get("/search/photos", {
+			params: { query: search, per_page: 20 },
+		});
+		setImages(response.data.results);
 		setBackgroundIndex(Math.floor(Math.random() * 20));
 	};
 
