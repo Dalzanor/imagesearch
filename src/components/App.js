@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import unsplash from "../api/unsplash";
 import ImageList from "./ImageList";
 import SearchBar from "./SearchBar";
+import { useTransition, animated } from "@react-spring/web";
 import "./App.css";
 
 const App = () => {
@@ -16,14 +17,28 @@ const App = () => {
 		setBackgroundIndex(Math.floor(Math.random() * 20));
 	};
 
+	const transition = useTransition(backgroundIndex, {
+		key: backgroundIndex,
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 },
+		config: { duration: 750 },
+	});
+
 	return (
-		<div
-			className="page"
-			style={{
-				backgroundImage: `url('${process.env.PUBLIC_URL}/bg_bggenerator_com${backgroundIndex}.png')`,
-			}}
-		>
-			<div className="ui container">
+		<div>
+			{transition((style, index) => {
+				return (
+					<animated.div
+						className="page"
+						style={{
+							...style,
+							backgroundImage: `url('${process.env.PUBLIC_URL}/bg_bggenerator_com${index}.png')`,
+						}}
+					/>
+				);
+			})}
+			<div className="ui container" style={{ zIndex: 1 }}>
 				<SearchBar customOnSubmit={onSearchSubmit} />
 				<ImageList images={images} />
 			</div>
